@@ -60,7 +60,7 @@ public class RecyclerNewsSource extends RecyclerView.Adapter<RecyclerNewsSource.
 
         Glide.with(mContext).load(mNewsSources.get(position).getmImageUrl()).placeholder(R.drawable.news).
                 into(holder.sourceImagee);
-        holder.sourceName.setText("SOURCE NAME - " + mNewsSources.get(position).getmName());
+        holder.sourceName.setText("Source name - " + mNewsSources.get(position).getmName());
     }
 
     /**

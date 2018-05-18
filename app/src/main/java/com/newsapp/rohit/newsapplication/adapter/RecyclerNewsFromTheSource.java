@@ -57,12 +57,17 @@ public class RecyclerNewsFromTheSource extends RecyclerView.Adapter<RecyclerNews
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerNews holder, int position) {
-        Glide.with(mContext).load(newsFromSources.get(position).getmImageUrl()).into(holder.banner);
+        Glide.with(mContext).load(newsFromSources.get(position).getmImageUrl()).
+                placeholder(R.drawable.news).into(holder.banner);
 
         holder.title.setText("" + newsFromSources.get(position).getmTitle());
         holder.description.setText("" + newsFromSources.get(position).getmDescription());
         holder.author.setText("Author - " + newsFromSources.get(position).getmAuthor());
         holder.date.setText("" + newsFromSources.get(position).getmDate());
+
+        if (newsFromSources.get(position).getmAuthor().equals("null")) {
+            holder.author.setVisibility(View.GONE);
+        }
     }
 
     /**

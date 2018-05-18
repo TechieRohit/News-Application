@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 String sourceId = sourceObj.getString("id");
                 String sourceName = sourceObj.getString("name");
 
-                if (!sourceId.equals(null)) {
+                if (!sourceId.equals("null")) {
                     String urlToImage = arrayObj.getString("urlToImage");
 
                     mArrayList.add(new NewsSource(sourceId,urlToImage,sourceName));

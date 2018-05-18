@@ -42,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView_author"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/colorPrimary"
                 android:paddingLeft="10dp"
                 android:text="Author - "
                 />

@@ -1,5 +1,6 @@
 package com.newsapp.rohit.newsapplication.activity;
 
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,10 @@ public class WebViewActivity extends AppCompatActivity {
 
     private String mUrl;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +54,15 @@ public class WebViewActivity extends AppCompatActivity {
         toolbarTextView.setText(R.string.browser);
         toolbarTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
 
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
+        swipeRefreshLayout.setRefreshing(true);
+
+        handler = new Handler();
+
         configureWebView();
         loadUrl();
 
+        onClickListeners();
     }
 
     /**
@@ -61,13 +72,15 @@ public class WebViewActivity extends AppCompatActivity {
      */
     private void loadUrl() {
 
-        mWebView.getSettings().setUserAgentString("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko)" +
-                " Chrome/55.0.2883.87 Safari/537.36");
+        mWebView.getSettings().setUserAgentString(Constants.USER_AGENT);
 
         mWebView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress)
             {
                 mProgressBar.setProgress(progress);
+                if (progress > 70) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
                 if (progress == 100) {
 
                     mProgressBar.setVisibility(View.GONE);
@@ -121,5 +134,22 @@ public class WebViewActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onClickListeners() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadUrl();
+                swipeRefreshLayout.setRefreshing(true);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },2500);
+            }
+        });
     }
 }
