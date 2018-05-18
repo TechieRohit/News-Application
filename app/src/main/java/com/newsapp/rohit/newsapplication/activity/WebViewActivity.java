@@ -110,6 +110,15 @@ public class WebViewActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Here is manages backpress in the default webview of android
+     * it helps in navigating the page in the browser and override the
+     * functionality of backpressed such that user will land on the previous page of browser
+     * and will not exit the webview activity untill its the last web page in stack
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
