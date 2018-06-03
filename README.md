@@ -1,7 +1,7 @@
 # News-Application
 
 
-An Android application that parse newsapi to show news from different sources available. 
+An Android application that parse JSON data provided by [News API](https://newsapi.org/) to show news from different sources
 
 
 ## License
